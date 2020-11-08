@@ -7,32 +7,32 @@
 #include <iomanip>
 using namespace std;
 /**
-*	@Author ÕÅÌ©ÑÒ  ÂíË§  ½¯ÀèÃ÷  »ÆÇàËÉ
+*	
 *	@Time 2020/10/25
 *   @FileCoding  ASNI
 *
 */
 
-const char Monocular_operator[15] = { '+','-','*','/','!','%','~','&','|','^','=','<','>',':','?' }; //µ¥Ä¿ÔËËã·û
-const string Binocular_operator[] = { "++","--","&&","||","<=","!=","==",">=","+=","-=","*=","/=" }; //Ë«Ä¿ÔËËã·û
-const char Delimiter[8] = { ',','(',')','{','}',';','[',']' }; //½ç·û
+const char Monocular_operator[15] = { '+','-','*','/','!','%','~','&','|','^','=','<','>',':','?' }; //å•ç›®è¿ç®—ç¬¦
+const string Binocular_operator[] = { "++","--","&&","||","<=","!=","==",">=","+=","-=","*=","/=" }; //åŒç›®è¿ç®—ç¬¦
+const char Delimiter[8] = { ',','(',')','{','}',';','[',']' }; //ç•Œç¬¦
 const string Keyword[19] = { "break","case","continue","do","default","else",
-				"for","if","include","main","return","switch","typedef","void","while","#","unsigned","true","false" };//¿ØÖÆ¹Ø¼ü×Ö
-const string Variable_type[7] = { "int","byte","long","short","float","double","char" }; //»ù±¾ÀàĞÍ
-const string typeName[9] = { "µ¥Ä¿ÔËËã·û","Ë«Ä¿ÔËËã·û","½ç·û","¿ØÖÆ¹Ø¼ü×Ö","»ù±¾ÀàĞÍ","±äÁ¿Ãû","×Ö·û","ÊıÖµ","×¢ÊÍ" };
-const string errTypeName[] = { "±êÊ¶·û±íÊ¾´íÎó","È±ÉÙÓÒÒıºÅ","ÊıÖµ±íÊ¾´íÎó","ÎŞ·¨Ê¶±ğµÄ±ê¼Ç" };
+				"for","if","include","main","return","switch","typedef","void","while","#","unsigned","true","false" };//æ§åˆ¶å…³é”®å­—
+const string Variable_type[7] = { "int","byte","long","short","float","double","char" }; //åŸºæœ¬ç±»å‹
+const string typeName[9] = { "å•ç›®è¿ç®—ç¬¦","åŒç›®è¿ç®—ç¬¦","ç•Œç¬¦","æ§åˆ¶å…³é”®å­—","åŸºæœ¬ç±»å‹","å˜é‡å","å­—ç¬¦","æ•°å€¼","æ³¨é‡Š" };
+const string errTypeName[] = { "æ ‡è¯†ç¬¦è¡¨ç¤ºé”™è¯¯","ç¼ºå°‘å³å¼•å·","æ•°å€¼è¡¨ç¤ºé”™è¯¯","æ— æ³•è¯†åˆ«çš„æ ‡è®°" };
 
 typedef struct LexItem {
 	int rowNum;
-	int typeId;           //1:µ¥Ä¿ÔËËã·û  2:Ë«Ä¿ÔËËã·û  3:½ç·û    4£º¿ØÖÆ¹Ø¼ü×Ö   5£º»ù±¾ÀàĞÍ   6 :±äÁ¿Ãû  7 ×Ö·û  8 ÊıÖµ    9×¢ÊÍ
+	int typeId;           //1:å•ç›®è¿ç®—ç¬¦  2:åŒç›®è¿ç®—ç¬¦  3:ç•Œç¬¦    4ï¼šæ§åˆ¶å…³é”®å­—   5ï¼šåŸºæœ¬ç±»å‹   6 :å˜é‡å  7 å­—ç¬¦  8 æ•°å€¼    9æ³¨é‡Š
 	string value;
 	LexItem(int x, int y, string z) :rowNum(x), typeId(y), value(z) {}
 };
 
-/*Òì³£´íÎóĞÅÏ¢Ïî*/
+/*å¼‚å¸¸é”™è¯¯ä¿¡æ¯é¡¹*/
 typedef struct errItem {
 	int rowNum;
-	int typeId;     //1. ±êÊ¶·û±íÊ¾´íÎó   2.×Ö·û»ò×Ö·û´®³ö´í 3. ÎŞ·¨Ê¶±ğ±ê¼Ç
+	int typeId;     //1. æ ‡è¯†ç¬¦è¡¨ç¤ºé”™è¯¯   2.å­—ç¬¦æˆ–å­—ç¬¦ä¸²å‡ºé”™ 3. æ— æ³•è¯†åˆ«æ ‡è®°
 	string  value;
 	errItem(int x, int y, string z) :rowNum(x), typeId(y), value(z) {}
 };
@@ -45,53 +45,53 @@ struct CmpByValue {
 	}
 };
 
-/** ×îÖÕ·ÖÎö½á¹û */
+/** æœ€ç»ˆåˆ†æç»“æœ */
 vector<LexItem> analyResult;
-/** ·ÖÎöÊı¾İ»º´æ */
-vector<string> fileMessage;    //ÎÄ¼şĞÅÏ¢
-/*ÎÄ¼şÃû*/
+/** åˆ†ææ•°æ®ç¼“å­˜ */
+vector<string> fileMessage;    //æ–‡ä»¶ä¿¡æ¯
+/*æ–‡ä»¶å*/
 string fileName;
-/*´íÎóĞÅÏ¢»ã×Ü*/
+/*é”™è¯¯ä¿¡æ¯æ±‡æ€»*/
 vector<errItem>errMessage;
 
 
-/*¶ÁÈ¡txt·ÖÎöÎÄ¼ş ½«Æä´æÈë @fileMeessage*/
+/*è¯»å–txtåˆ†ææ–‡ä»¶ å°†å…¶å­˜å…¥ @fileMeessage*/
 void readSourceFile();
-/*´Ê·¨·ÖÎöÈë¿Ú*/
+/*è¯æ³•åˆ†æå…¥å£*/
 void LexAnalysis();
-/*Ñ°ÕÒ½ç·ûÏÂ±í*/
-int  findDelimiter(char c);   //Ñ°ÕÒ½ç·ûÏÂ±í
-/*Ñ°ÕÒµ¥Ä¿ÔËËã·ûÏÂ±í*/
+/*å¯»æ‰¾ç•Œç¬¦ä¸‹è¡¨*/
+int  findDelimiter(char c);   //å¯»æ‰¾ç•Œç¬¦ä¸‹è¡¨
+/*å¯»æ‰¾å•ç›®è¿ç®—ç¬¦ä¸‹è¡¨*/
 int findMonOperator(char c);
-/*Ñ°ÕÒstring µÄÏÂ±í*/
+/*å¯»æ‰¾string çš„ä¸‹è¡¨*/
 int  findStrIndex(string str, const string  strarray[], int length);
-/*½á¹ûÕ¹Ê¾*/
+/*ç»“æœå±•ç¤º*/
 void showResult();
-/*Ğ´ÈëÎÄ¼ş*/
+/*å†™å…¥æ–‡ä»¶*/
 void writeLexFile();
-/*@strarrayÀïÊÇ·ñ°üº¬@str*/
+/*@strarrayé‡Œæ˜¯å¦åŒ…å«@str*/
 int findHasStrIndex(string str, const string strarray[], int lenth);
-/*ÊÇ·ñµ½´ï½áÊøµã*/
+/*æ˜¯å¦åˆ°è¾¾ç»“æŸç‚¹*/
 bool isComplete(char c);
-/*ÕÒµ½¶àĞĞ×¢ÊÍ½áÎ²*/
+/*æ‰¾åˆ°å¤šè¡Œæ³¨é‡Šç»“å°¾*/
 bool findMulNoteLocation(int line, int i, int res[]);
-/*ÕÒµ½¶àĞĞ×¢ÊÍµÄÖµ*/
+/*æ‰¾åˆ°å¤šè¡Œæ³¨é‡Šçš„å€¼*/
 string findmulNoteVal(int startline, int starpoint, int loc[]);
-/*Í¨¹ıÀàĞÍ»ñÈ¡²»Í¬ÀàĞÍµÄ·ûºÅ±í*/
+/*é€šè¿‡ç±»å‹è·å–ä¸åŒç±»å‹çš„ç¬¦å·è¡¨*/
 vector<LexItem> getLexitemByType(int typeId);
-/*ÕÒµ½½áÊøµã*/
+/*æ‰¾åˆ°ç»“æŸç‚¹*/
 int findCompleteIndex(string str);
-/*ÅĞ¶Ï±äÁ¿ÃûÊÇ·ñºÏ·¨*/
+/*åˆ¤æ–­å˜é‡åæ˜¯å¦åˆæ³•*/
 bool judgeIdisLegal(string str);
-/*»ñÈ¡×Ö·û ¡¯  ¡°µÄ½áÎ²*/
+/*è·å–å­—ç¬¦ â€™  â€œçš„ç»“å°¾*/
 int findstrCompleteIndex(string str);
-/*»ñÈ¡Êı×ÖµÄ½áÎ²*/
+/*è·å–æ•°å­—çš„ç»“å°¾*/
 bool judgeNumlegal(string str);
-/*´òÓ¡¸÷¸öLex³öÏÖµÄ´ÎÊı*/
+/*æ‰“å°å„ä¸ªLexå‡ºç°çš„æ¬¡æ•°*/
 void printValueCounts();
-/*Í¨¹ıstr²éÕÒÀàĞÍ*/
+/*é€šè¿‡stræŸ¥æ‰¾ç±»å‹*/
 int getTypeByValue(string str);
-/*Ö÷·ÖÎöº¯Êı*/
+/*ä¸»åˆ†æå‡½æ•°*/
 void  LexAnalysis();
 
 int  main() {
@@ -109,21 +109,21 @@ void  LexAnalysis() {
 		if (offset >= line.length()) { offset = 0; continue; }
 		for (int i = 0 + offset; i < line.length(); i++) {
 			if (offset > 0) offset = 0;
-			//×¢ÊÍµ¥¶ÀÅĞ¶Ï
+			//æ³¨é‡Šå•ç‹¬åˆ¤æ–­
 			if (line[i] == '/') {
 				if (i < line.size() - 1) {
-					if (line[i + 1] == '/') { //µ¥ĞĞ×¢ÊÍ
+					if (line[i + 1] == '/') { //å•è¡Œæ³¨é‡Š
 						string val = "";
-						if (i != line.size() - 2) { val = line.substr(i + 2); } //·Çµ¥ĞĞÄ©Î²
+						if (i != line.size() - 2) { val = line.substr(i + 2); } //éå•è¡Œæœ«å°¾
 						LexItem  SNote(index, 9, val);
 						analyResult.push_back(SNote);
 						break;
 					}
-					else if (line[i + 1] == '*') { //¶àĞĞ×¢ÊÍ
+					else if (line[i + 1] == '*') { //å¤šè¡Œæ³¨é‡Š
 						int loc[] = { 0,0 };
-						if (findMulNoteLocation(index, i + 2, loc) == false) {  //¶àĞĞ×¢ÊÍ³ö´í  ³ÌĞòÖ±½ÓÖÕÖ¹
+						if (findMulNoteLocation(index, i + 2, loc) == false) {  //å¤šè¡Œæ³¨é‡Šå‡ºé”™  ç¨‹åºç›´æ¥ç»ˆæ­¢
 							showResult();
-							cout << "µÚ " << index << " ĞĞ £¬×¢ÊÍ³ö´í£¬Î´ÕÒµ½×¢½â½áÎ²£¬³ÌĞòÖÕÖ¹£¡" << endl;
+							cout << "ç¬¬ " << index << " è¡Œ ï¼Œæ³¨é‡Šå‡ºé”™ï¼Œæœªæ‰¾åˆ°æ³¨è§£ç»“å°¾ï¼Œç¨‹åºç»ˆæ­¢ï¼" << endl;
 							exit(-1);
 						}
 						string mval = findmulNoteVal(index, i + 2, loc);
@@ -139,21 +139,21 @@ void  LexAnalysis() {
 				}
 			}
 
-			if (line[i] == ' ' || line[i] == '\t') { continue; } //¹ıÂË¿Õ¸ñ ºÍÖÆ±í·û
-			else if (line[0] == '#') { break; } //¹ıÂËÍ·ÎÄ¼ş
-			else if (findDelimiter(line[i]) != -1) {   //½ç·û
+			if (line[i] == ' ' || line[i] == '\t') { continue; } //è¿‡æ»¤ç©ºæ ¼ å’Œåˆ¶è¡¨ç¬¦
+			else if (line[0] == '#') { break; } //è¿‡æ»¤å¤´æ–‡ä»¶
+			else if (findDelimiter(line[i]) != -1) {   //ç•Œç¬¦
 				string temp = " "; temp[0] = line[i];
 				LexItem delimiter(index, 3, temp);
 				analyResult.push_back(delimiter);
 			}
-			else if (findMonOperator(line[i]) != -1) {     //ÔËËã·û   
-				if (i != line.length() - 1) {   //ÊÇ·ñÎªÎª±¾ĞĞ×îºóÒ»¸ö×Ö·û
+			else if (findMonOperator(line[i]) != -1) {     //è¿ç®—ç¬¦   
+				if (i != line.length() - 1) {   //æ˜¯å¦ä¸ºä¸ºæœ¬è¡Œæœ€åä¸€ä¸ªå­—ç¬¦
 					string str = line.substr(i, 2);
-					if (findStrIndex(str, Binocular_operator, 12) != -1) {  //Ë«Ä¿ÔËËã·û
+					if (findStrIndex(str, Binocular_operator, 12) != -1) {  //åŒç›®è¿ç®—ç¬¦
 						LexItem Bopt(index, 2, Binocular_operator[findStrIndex(str, Binocular_operator, 12)]);
 						analyResult.push_back(Bopt); i++;
 					}
-					else {                      //µ¥Ä¿ÔËËã·û
+					else {                      //å•ç›®è¿ç®—ç¬¦
 						string temp = " "; temp[0] = line[i];
 						LexItem opt(index, 1, temp);
 						analyResult.push_back(opt);
@@ -161,44 +161,44 @@ void  LexAnalysis() {
 						int s = 10;
 					}
 				}
-				else {  //µ¥Ä¿ÔËËã·û
+				else {  //å•ç›®è¿ç®—ç¬¦
 					string temp = " "; temp[0] = line[i];
 					LexItem opt1(index, 1, temp);
 					analyResult.push_back(opt1);
 				}
 			}
-			else if (((char)line[i] >= 'a' && (char)line[i] <= 'z') || ((char)line[i] >= 'A' && (char)line[i] <= 'Z') || (char)line[i] == '_') { //¿ØÖÆ¹Ø¼ü×Ö   »ù±¾ÀàĞÍ   ±äÁ¿Ãû
+			else if (((char)line[i] >= 'a' && (char)line[i] <= 'z') || ((char)line[i] >= 'A' && (char)line[i] <= 'Z') || (char)line[i] == '_') { //æ§åˆ¶å…³é”®å­—   åŸºæœ¬ç±»å‹   å˜é‡å
 				int K = findHasStrIndex(line.substr(i), Keyword, 19);
 				int V = findHasStrIndex(line.substr(i), Variable_type, 7);
-				if (K != -1) {   //¿ÉÄÜÎª¿ØÖÆ¹Ø¼ü×Ö
+				if (K != -1) {   //å¯èƒ½ä¸ºæ§åˆ¶å…³é”®å­—
 					if (i + K - 1 == line.size() || isComplete(line[i + K])) {
 						LexItem kw(index, 4, line.substr(i, K));
 						analyResult.push_back(kw);
 						i += K - 1;
 					}
 				}
-				else if (V != -1) { //¿ÉÄÜÎª»ù±¾ÀàĞÍ
+				else if (V != -1) { //å¯èƒ½ä¸ºåŸºæœ¬ç±»å‹
 					if (i + V - 1 == line.size() || isComplete(line[i + V])) {
 						LexItem variable(index, 5, line.substr(i, V));
 						analyResult.push_back(variable);
 						i += V - 1;
 					}
 				}
-				else {//±äÁ¿Ãû  ID
+				else {//å˜é‡å  ID
 					int IDI = findCompleteIndex(line.substr(i));
 					string IDval = line.substr(i, IDI);
-					if (judgeIdisLegal(IDval)) {    //ºÏ·¨±êÊ¶·û
+					if (judgeIdisLegal(IDval)) {    //åˆæ³•æ ‡è¯†ç¬¦
 						LexItem id(index, 6, IDval);
 						analyResult.push_back(id);
 					}
 					else {
-						errItem iderr(index, 1, IDval);  //·Ç·¨±êÊ¶·û
+						errItem iderr(index, 1, IDval);  //éæ³•æ ‡è¯†ç¬¦
 						errMessage.push_back(iderr);
 					}
 					i += IDI - 1;
 				}
 			}
-			else if (line[i] >= 48 && line[i] <= 57) { //ÊıÖµ        
+			else if (line[i] >= 48 && line[i] <= 57) { //æ•°å€¼        
 				int NID = findCompleteIndex(line.substr(i));
 				string numVal = line.substr(i, NID);
 				if (judgeNumlegal(numVal)) {
@@ -211,9 +211,9 @@ void  LexAnalysis() {
 				}
 				i += NID - 1;
 			}
-			else if (line[i] == '\'' || line[i] == '"') {  //×Ö·û    CÓïÑÔ×Ö·û´®Ö»ÄÜ·ÅÔÚÒ»ĞĞ  ²»ÄÜ²ğ¿ª  ¼´ ¡° »ò ¡®  ²»ÄÜ³öÏÖÔÚ²»Í¬µÄĞĞÊı
+			else if (line[i] == '\'' || line[i] == '"') {  //å­—ç¬¦    Cè¯­è¨€å­—ç¬¦ä¸²åªèƒ½æ”¾åœ¨ä¸€è¡Œ  ä¸èƒ½æ‹†å¼€  å³ â€œ æˆ– â€˜  ä¸èƒ½å‡ºç°åœ¨ä¸åŒçš„è¡Œæ•°
 				int backindex = findstrCompleteIndex(line.substr(i));
-				if (backindex == -1) {   //×Ö·û»ò×Ö·û´®³ö´í  È±ÉÙÓÒÒıºÅ
+				if (backindex == -1) {   //å­—ç¬¦æˆ–å­—ç¬¦ä¸²å‡ºé”™  ç¼ºå°‘å³å¼•å·
 					errItem Serr(index, 2, line.substr(i));
 					errMessage.push_back(Serr);
 					break;
@@ -224,7 +224,7 @@ void  LexAnalysis() {
 					i += backindex - 1;
 				}
 			}
-			else {   //ÎŞ·¨Ê¶±ğ±ê¼Ç
+			else {   //æ— æ³•è¯†åˆ«æ ‡è®°
 				int c = findCompleteIndex(line.substr(i));
 				errItem value(index, 4, line.substr(i,c));
 				errMessage.push_back(value);
@@ -236,12 +236,12 @@ void  LexAnalysis() {
 }
 
 void readSourceFile() {
-	std::cout << "ÇëÊäÈëÒª·ÖÎöµÄÔ´´úÂëÎÄ¼ş  :  ";
+	std::cout << "è¯·è¾“å…¥è¦åˆ†æçš„æºä»£ç æ–‡ä»¶  :  ";
 	cin >> fileName;
 	ifstream file(fileName);
 
 	if (!file.is_open()) {
-		cout << "ÎÄ¼ş´ò¿ª´íÎó£¡Çë¼ì²éÎÄ¼şÂ·¾¶£º" << fileName << endl;
+		cout << "æ–‡ä»¶æ‰“å¼€é”™è¯¯ï¼è¯·æ£€æŸ¥æ–‡ä»¶è·¯å¾„ï¼š" << fileName << endl;
 		exit(1);
 	}
 	char buffer[255];
@@ -282,7 +282,7 @@ int  findStrIndex(string str, const string  strarray[], int length) {
 	return -1;
 }
 
-/*@strarrayÀïÊÇ·ñ°üº¬@str*/
+/*@strarrayé‡Œæ˜¯å¦åŒ…å«@str*/
 int findHasStrIndex(string str, const string strarray[], int lenth) {
 	int maxlength = str.size();
 	for (int i = 0; i < lenth; i++) {
@@ -293,7 +293,7 @@ int findHasStrIndex(string str, const string strarray[], int lenth) {
 	return -1;
 }
 
-/*ÊÇ·ñµ½´ï½áÊøµã*/
+/*æ˜¯å¦åˆ°è¾¾ç»“æŸç‚¹*/
 bool isComplete(char c) {
 	if (c == ' ')return true;
 	for (int i = 0; i < strlen(Delimiter); i++) {
@@ -305,7 +305,7 @@ bool isComplete(char c) {
 	return false;
 }
 
-/*ÕÒµ½½áÊøµã*/
+/*æ‰¾åˆ°ç»“æŸç‚¹*/
 int findCompleteIndex(string str) {
 	for (int i = 0; i < str.length(); i++) {
 		if (isComplete(str[i]))return i;
@@ -319,10 +319,10 @@ int findstrCompleteIndex(string str) {
 	}
 	return -1;
 }
-/*ÕÒµ½¶àĞĞ×¢ÊÍ½áÎ²*/
+/*æ‰¾åˆ°å¤šè¡Œæ³¨é‡Šç»“å°¾*/
 bool findMulNoteLocation(int line, int i, int res[]) {
 
-	for (int first = i; first < fileMessage[line].size(); first++) {//ÔÚÍ¬Ò»ĞĞ
+	for (int first = i; first < fileMessage[line].size(); first++) {//åœ¨åŒä¸€è¡Œ
 		if (first < fileMessage[line].size()) {
 			if (fileMessage[line][first] == '*' && fileMessage[line][first + 1] == '/') {
 				res[0] = line;
@@ -346,7 +346,7 @@ bool findMulNoteLocation(int line, int i, int res[]) {
 	return false;
 }
 
-/*ÕÒµ½¶àĞĞ×¢ÊÍµÄÖµ*/
+/*æ‰¾åˆ°å¤šè¡Œæ³¨é‡Šçš„å€¼*/
 string findmulNoteVal(int startline, int starpoint, int loc[]) {
 	string mulvalue = "";
 	if (starpoint <= loc[1]) mulvalue += fileMessage[startline].substr(starpoint, loc[1] - starpoint + 1);
@@ -368,16 +368,16 @@ void showResult() {
 	for (int i = 0; i < analyResult.size(); i++) {
 		cout << "< " << analyResult[i].rowNum << " , " << analyResult[i].value << " , " << typeName[analyResult[i].typeId - 1] << " >" << endl;
 	}
-	if (errMessage.size() != 0) { //´íÎóĞÅÏ¢
+	if (errMessage.size() != 0) { //é”™è¯¯ä¿¡æ¯
 		cout << "--------------------------------------------------" << endl;
-		cout << "±àÒë¹ı³Ì³öÏÖµÄ´íÎó:" << endl;
+		cout << "ç¼–è¯‘è¿‡ç¨‹å‡ºç°çš„é”™è¯¯:" << endl;
 		for (int i = 0; i < errMessage.size(); i++) {
 			cout << "< " << errMessage[i].rowNum << " , " << errMessage[i].value << " , " << errTypeName[errMessage[i].typeId - 1] << " >" << endl;
 		}
 	}
 	printValueCounts();
 	cout << "--------------------------------------------------" << endl;
-	cout << "´úÂë×ÜĞĞÊı:" << fileMessage.size() << endl;
+	cout << "ä»£ç æ€»è¡Œæ•°:" << fileMessage.size() << endl;
 	for (int i = 0; i < 9; i++) {
 		vector<LexItem> item = getLexitemByType(i + 1);
 		cout << typeName[i] << " : " << item.size()<<endl;
@@ -386,7 +386,7 @@ void showResult() {
 
 }
 
-/*Í¨¹ıÀàĞÍ»ñÈ¡²»Í¬ÀàĞÍµÄ·ûºÅ±í*/
+/*é€šè¿‡ç±»å‹è·å–ä¸åŒç±»å‹çš„ç¬¦å·è¡¨*/
 vector<LexItem> getLexitemByType(int typeId) {
 	vector<LexItem> ans;
 	for (auto item : analyResult) {
@@ -405,7 +405,7 @@ void printValueCounts() {
 		}
 	}
 
-	//¶ÔmapÖĞÔªËØ°´valueÅÅĞò
+	//å¯¹mapä¸­å…ƒç´ æŒ‰valueæ’åº
 	vector<PAIR>forSort(typeCount.begin(), typeCount.end());
 	sort(forSort.begin(),forSort.end(),CmpByValue());
 	cout << "--------------------------------------------------" << endl;
