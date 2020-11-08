@@ -1,0 +1,24 @@
+﻿  Lexical_analyzer_v2.0.cpp
+D:\Learn\third_up\编译原理与技术\workSpace\词法分析器\ours\Lexical_analyzer_v2.0\Lexical_analyzer_v2.0\Lexical_analyzer_v2.0.cpp(30,2): warning C4091: “typedef ”: 没有声明变量时忽略“LexItem”的左侧
+D:\Learn\third_up\编译原理与技术\workSpace\词法分析器\ours\Lexical_analyzer_v2.0\Lexical_analyzer_v2.0\Lexical_analyzer_v2.0.cpp(38,2): warning C4091: “typedef ”: 没有声明变量时忽略“errItem”的左侧
+D:\Learn\third_up\编译原理与技术\workSpace\词法分析器\ours\Lexical_analyzer_v2.0\Lexical_analyzer_v2.0\Lexical_analyzer_v2.0.cpp(107,28): warning C4018: “<”: 有符号/无符号不匹配
+D:\Learn\third_up\编译原理与技术\workSpace\词法分析器\ours\Lexical_analyzer_v2.0\Lexical_analyzer_v2.0\Lexical_analyzer_v2.0.cpp(109,14): warning C4018: “>=”: 有符号/无符号不匹配
+D:\Learn\third_up\编译原理与技术\workSpace\词法分析器\ours\Lexical_analyzer_v2.0\Lexical_analyzer_v2.0\Lexical_analyzer_v2.0.cpp(110,30): warning C4018: “<”: 有符号/无符号不匹配
+D:\Learn\third_up\编译原理与技术\workSpace\词法分析器\ours\Lexical_analyzer_v2.0\Lexical_analyzer_v2.0\Lexical_analyzer_v2.0.cpp(114,11): warning C4018: “<”: 有符号/无符号不匹配
+D:\Learn\third_up\编译原理与技术\workSpace\词法分析器\ours\Lexical_analyzer_v2.0\Lexical_analyzer_v2.0\Lexical_analyzer_v2.0.cpp(258,20): warning C4018: “<”: 有符号/无符号不匹配
+D:\Learn\third_up\编译原理与技术\workSpace\词法分析器\ours\Lexical_analyzer_v2.0\Lexical_analyzer_v2.0\Lexical_analyzer_v2.0.cpp(265,20): warning C4018: “<”: 有符号/无符号不匹配
+D:\Learn\third_up\编译原理与技术\workSpace\词法分析器\ours\Lexical_analyzer_v2.0\Lexical_analyzer_v2.0\Lexical_analyzer_v2.0.cpp(272,20): warning C4018: “<”: 有符号/无符号不匹配
+D:\Learn\third_up\编译原理与技术\workSpace\词法分析器\ours\Lexical_analyzer_v2.0\Lexical_analyzer_v2.0\Lexical_analyzer_v2.0.cpp(289,26): warning C4018: “<=”: 有符号/无符号不匹配
+D:\Learn\third_up\编译原理与技术\workSpace\词法分析器\ours\Lexical_analyzer_v2.0\Lexical_analyzer_v2.0\Lexical_analyzer_v2.0.cpp(299,20): warning C4018: “<”: 有符号/无符号不匹配
+D:\Learn\third_up\编译原理与技术\workSpace\词法分析器\ours\Lexical_analyzer_v2.0\Lexical_analyzer_v2.0\Lexical_analyzer_v2.0.cpp(302,20): warning C4018: “<”: 有符号/无符号不匹配
+D:\Learn\third_up\编译原理与技术\workSpace\词法分析器\ours\Lexical_analyzer_v2.0\Lexical_analyzer_v2.0\Lexical_analyzer_v2.0.cpp(310,20): warning C4018: “<”: 有符号/无符号不匹配
+D:\Learn\third_up\编译原理与技术\workSpace\词法分析器\ours\Lexical_analyzer_v2.0\Lexical_analyzer_v2.0\Lexical_analyzer_v2.0.cpp(317,20): warning C4018: “<”: 有符号/无符号不匹配
+D:\Learn\third_up\编译原理与技术\workSpace\词法分析器\ours\Lexical_analyzer_v2.0\Lexical_analyzer_v2.0\Lexical_analyzer_v2.0.cpp(325,28): warning C4018: “<”: 有符号/无符号不匹配
+D:\Learn\third_up\编译原理与技术\workSpace\词法分析器\ours\Lexical_analyzer_v2.0\Lexical_analyzer_v2.0\Lexical_analyzer_v2.0.cpp(326,13): warning C4018: “<”: 有符号/无符号不匹配
+D:\Learn\third_up\编译原理与技术\workSpace\词法分析器\ours\Lexical_analyzer_v2.0\Lexical_analyzer_v2.0\Lexical_analyzer_v2.0.cpp(334,35): warning C4018: “<”: 有符号/无符号不匹配
+D:\Learn\third_up\编译原理与技术\workSpace\词法分析器\ours\Lexical_analyzer_v2.0\Lexical_analyzer_v2.0\Lexical_analyzer_v2.0.cpp(335,21): warning C4018: “<”: 有符号/无符号不匹配
+D:\Learn\third_up\编译原理与技术\workSpace\词法分析器\ours\Lexical_analyzer_v2.0\Lexical_analyzer_v2.0\Lexical_analyzer_v2.0.cpp(336,14): warning C4018: “<”: 有符号/无符号不匹配
+D:\Learn\third_up\编译原理与技术\workSpace\词法分析器\ours\Lexical_analyzer_v2.0\Lexical_analyzer_v2.0\Lexical_analyzer_v2.0.cpp(368,20): warning C4018: “<”: 有符号/无符号不匹配
+D:\Learn\third_up\编译原理与技术\workSpace\词法分析器\ours\Lexical_analyzer_v2.0\Lexical_analyzer_v2.0\Lexical_analyzer_v2.0.cpp(374,21): warning C4018: “<”: 有符号/无符号不匹配
+D:\Learn\third_up\编译原理与技术\workSpace\词法分析器\ours\Lexical_analyzer_v2.0\Lexical_analyzer_v2.0\Lexical_analyzer_v2.0.cpp(436,20): warning C4018: “<”: 有符号/无符号不匹配
+  Lexical_analyzer_v2.0.vcxproj -> D:\Learn\third_up\编译原理与技术\workSpace\词法分析器\ours\Lexical_analyzer_v2.0\Debug\Lexical_analyzer_v2.0.exe
